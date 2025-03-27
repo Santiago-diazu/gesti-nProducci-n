@@ -5,8 +5,7 @@
 
 ## Descripción
 
-Este proyecto tiene como objetivo desarrollar un sistema de gestión de producción en una fábrica. Las fábricas gestionan operarios que se encargan de la fabricación de distintos tipos de productos. El sistema permitirá registrar la cantidad de productos fabricados por cada operario y calcular los bonos obtenidos según la categoría de los productos manufacturados. Además, proporcionará información sobre el desempeño de cada operario y sobre la categoría de productos más fabricada.
-
+Las fábricas manejan operarios encargados de la producción de distintos tipos de productos. Para optimizar la gestión de producción y los incentivos a los trabajadores, se requiere un sistema que registre la cantidad de productos fabricados por cada operario y calcule los bonos obtenidos según la categoría de productos manufacturados. Este sistema permitirá conocer el desempeño individual de cada operario y la categoría de productos más fabricada.
 ## Requisitos
 
 ### 1. Categorías de productos
