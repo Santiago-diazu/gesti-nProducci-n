@@ -1,15 +1,15 @@
 let intentos = 0;
-let usuarioCorrecto = "admin";
-let contrasenaCorrecta = "12345";
-let loginExitoso = false;
+let usuario = "admin";
+let contrasena = "12345";
+let acceso = false;
 
 while (intentos < 3) {
-    let usuario = prompt("Introduce tu nombre de usuario:");
-    let contrasena = prompt("Introduce tu contraseña:");
+    let usuario1 = prompt("Introduce tu nombre de usuario:");
+    let contrasena1 = prompt("Introduce tu contraseña:");
 
-    if (usuario === usuarioCorrecto && contrasena === contrasenaCorrecta) {
-        alert(`Bienvenido ${usuarioCorrecto}.`);
-        loginExitoso = true;
+    if (usuario1 === usuario && contrasena1 === contrasena) {
+        alert(`Bienvenido ${usuario}.`);
+        acceso = true;
         break;
     } else {
         intentos++;
@@ -22,7 +22,7 @@ while (intentos < 3) {
     }
 }
 
-if (!loginExitoso) {
+if (!acceso) {
     alert("No se pudo iniciar sesión. El programa se cerrará.");
 } else {
     let operarios = [];
