@@ -1,15 +1,15 @@
 let intentos = 0;
 let usuario = "admin";
 let contrasena = "12345";
-let acceso = false;
+let ingreso = false;
 
 while (intentos < 3) {
-    let usuario1 = prompt("Introduce tu nombre de usuario:");
-    let contrasena1 = prompt("Introduce tu contraseña:");
+    let usuarioIntento = prompt("Introduce tu nombre de usuario:");
+    let contrasenaIntento = prompt("Introduce tu contraseña:");
 
-    if (usuario1 === usuario && contrasena1 === contrasena) {
+    if (usuarioIntento === usuario && contrasenaIntento === contrasena) {
         alert(`Bienvenido ${usuario}.`);
-        acceso = true;
+        ingreso = true;
         break;
     } else {
         intentos++;
@@ -22,21 +22,25 @@ while (intentos < 3) {
     }
 }
 
-if (!acceso) {
+if (!ingreso) {
     alert("No se pudo iniciar sesión. El programa se cerrará.");
 } else {
-    let operarios = [];
-    let conteoCategorias = {
-        muebles: { escritorios: 0, sillas: 0, estanterias: 0 },
-        electronica: { radios: 0, parlantes: 0, relojes: 0 },
-        textiles: { camisetas: 0, pantalones: 0, chaquetas: 0 }
-    };
-    let totalesOperarios = [];
-
-    let maxProduccion = 0;
-    let operarioMaxProduccion = '';
-
+    let operario = "";
+    let categoriaSeleccionada = "";
+    let productoMueble = "";
+    let escritorios = 0, sillas = 0, estanterias = 0;
+    let radios = 0, parlantes = 0, relojes = 0;
+    let camisetas = 0, pantalones = 0, chaquetas = 0;
+    let muebles = 0, electronica = 0, textiles = 0;
+    let masProduccion = 0;
+    let opMasProduccion = "";
+    let categoriaMasFabricada = "";
     let continuar = true;
+
+    let conteoEscritorios = 0, conteoSillas = 0, conteoEstanterias = 0;
+    let conteoRadios = 0, conteoParlantes = 0, conteoRelojes = 0;
+    let conteoCamisetas = 0, conteoPantalones = 0, conteoChaquetas = 0;
+
     while (continuar) {
         let opcion = prompt(
             "Seleccione una opción:\n" +
@@ -48,227 +52,147 @@ if (!acceso) {
             "6. Salir"
         );
 
-switch (opcion) {
-    case "1":
-        let nombreOperario = prompt("Introduce el nombre del operario:");
-        let categoriaSeleccionada = prompt("Selecciona una categoría de producción: \n1. Muebles \n2. Electrónica \n3. Textiles");
-
-        switch (categoriaSeleccionada) {
+        switch (opcion) {
             case "1":
-                let productoMueble = prompt("Selecciona un mueble: \n1. Escritorios \n2. Sillas \n3. Estanterías");
+                operario = prompt("Introduce el nombre del operario:");
+                categoriaSeleccionada = prompt("Selecciona una categoría de producción: \n1. Muebles \n2. Electrónica \n3. Textiles");
 
-                switch (productoMueble) {
+                switch (categoriaSeleccionada) {
                     case "1":
-                        let cantidadEscritorios = parseInt(prompt("¿Cuántos escritorios fabricó?"));
-                        operarios.push({
-                            nombre: nombreOperario,
-                            muebles: { escritorios: cantidadEscritorios },
-                            electronica: 0,
-                            textiles: 0
-                        });
-                        conteoCategorias.muebles.escritorios += cantidadEscritorios;
+                        productoMueble = prompt("Selecciona un mueble: \n1. Escritorios \n2. Sillas \n3. Estanterías");
+
+                        switch (productoMueble) {
+                            case "1":
+                                escritorios = parseInt(prompt("¿Cuántos escritorios fabricó?"));
+                                conteoEscritorios += escritorios;
+                                break;
+                            case "2":
+                                sillas = parseInt(prompt("¿Cuántas sillas fabricó?"));
+                                conteoSillas += sillas;
+                                break;
+                            case "3":
+                                estanterias = parseInt(prompt("¿Cuántas estanterías fabricó?"));
+                                conteoEstanterias += estanterias;
+                                break;
+                            default:
+                                alert("Opción no válida.");
+                                break;
+                        }
                         break;
+
                     case "2":
-                        let cantidadSillas = parseInt(prompt("¿Cuántas sillas fabricó?"));
-                        operarios.push({
-                            nombre: nombreOperario,
-                            muebles: { sillas: cantidadSillas },
-                            electronica: 0,
-                            textiles: 0
-                        });
-                        conteoCategorias.muebles.sillas += cantidadSillas;
+                        let productoElectronica = prompt("Selecciona un producto electrónico: \n1. Radios \n2. Parlantes \n3. Relojes");
+
+                        switch (productoElectronica) {
+                            case "1":
+                                radios = parseInt(prompt("¿Cuántos radios fabricó?"));
+                                conteoRadios += radios;
+                                break;
+                            case "2":
+                                parlantes = parseInt(prompt("¿Cuántos parlantes fabricó?"));
+                                conteoParlantes += parlantes;
+                                break;
+                            case "3":
+                                relojes = parseInt(prompt("¿Cuántos relojes fabricó?"));
+                                conteoRelojes += relojes;
+                                break;
+                            default:
+                                alert("Opción no válida.");
+                                break;
+                        }
                         break;
+
                     case "3":
-                        let cantidadEstanterias = parseInt(prompt("¿Cuántas estanterías fabricó?"));
-                        operarios.push({
-                            nombre: nombreOperario,
-                            muebles: { estanterias: cantidadEstanterias },
-                            electronica: 0,
-                            textiles: 0
-                        });
-                        conteoCategorias.muebles.estanterias += cantidadEstanterias;
+                        let productoTextiles = prompt("Selecciona un producto textil: \n1. Camisetas \n2. Pantalones \n3. Chaquetas");
+
+                        switch (productoTextiles) {
+                            case "1":
+                                camisetas = parseInt(prompt("¿Cuántas camisetas fabricó?"));
+                                conteoCamisetas += camisetas;
+                                break;
+                            case "2":
+                                pantalones = parseInt(prompt("¿Cuántos pantalones fabricó?"));
+                                conteoPantalones += pantalones;
+                                break;
+                            case "3":
+                                chaquetas = parseInt(prompt("¿Cuántas chaquetas fabricó?"));
+                                conteoChaquetas += chaquetas;
+                                break;
+                            default:
+                                alert("Opción no válida.");
+                                break;
+                        }
                         break;
+
                     default:
                         alert("Opción no válida.");
                         break;
                 }
+
+                alert(`Producción registrada para el operario ${operario}.`);
                 break;
+
             case "2":
-                let productoElectronica = prompt("Selecciona un producto electrónico: \n1. Radios \n2. Parlantes \n3. Relojes");
+                if (operario !== "") {
+                    muebles = conteoEscritorios + conteoSillas + conteoEstanterias;
+                    electronica = conteoRadios + conteoParlantes + conteoRelojes;
+                    textiles = conteoCamisetas + conteoPantalones + conteoChaquetas;
 
-                switch (productoElectronica) {
-                    case "1":
-                        let cantidadRadios = parseInt(prompt("¿Cuántos radios fabricó?"));
-                        operarios.push({
-                            nombre: nombreOperario,
-                            muebles: 0,
-                            electronica: { radios: cantidadRadios },
-                            textiles: 0
-                        });
-                        conteoCategorias.electronica.radios += cantidadRadios;
-                        break;
-                    case "2":
-                        let cantidadParlantes = parseInt(prompt("¿Cuántos parlantes fabricó?"));
-                        operarios.push({
-                            nombre: nombreOperario,
-                            muebles: 0,
-                            electronica: { parlantes: cantidadParlantes },
-                            textiles: 0
-                        });
-                        conteoCategorias.electronica.parlantes += cantidadParlantes;
-                        break;
-                    case "3":
-                        let cantidadRelojes = parseInt(prompt("¿Cuántos relojes fabricó?"));
-                        operarios.push({
-                            nombre: nombreOperario,
-                            muebles: 0,
-                            electronica: { relojes: cantidadRelojes },
-                            textiles: 0
-                        });
-                        conteoCategorias.electronica.relojes += cantidadRelojes;
-                        break;
-                    default:
-                        alert("Opción no válida.");
-                        break;
+                    alert(`${operario} fabricó un total de:\nMuebles: ${muebles}\nElectrónica: ${electronica}\nTextiles: ${textiles}`);
+                } else {
+                    alert("No hay operarios registrados.");
                 }
                 break;
+
             case "3":
-                let productoTextiles = prompt("Selecciona un producto textil: \n1. Camisetas \n2. Pantalones \n3. Chaquetas");
-
-                switch (productoTextiles) {
-                    case "1":
-                        let cantidadCamisetas = parseInt(prompt("¿Cuántas camisetas fabricó?"));
-                        operarios.push({
-                            nombre: nombreOperario,
-                            muebles: 0,
-                            electronica: 0,
-                            textiles: { camisetas: cantidadCamisetas }
-                        });
-                        conteoCategorias.textiles.camisetas += cantidadCamisetas;
-                        break;
-                    case "2":
-                        let cantidadPantalones = parseInt(prompt("¿Cuántos pantalones fabricó?"));
-                        operarios.push({
-                            nombre: nombreOperario,
-                            muebles: 0,
-                            electronica: 0,
-                            textiles: { pantalones: cantidadPantalones }
-                        });
-                        conteoCategorias.textiles.pantalones += cantidadPantalones;
-                        break;
-                    case "3":
-                        let cantidadChaquetas = parseInt(prompt("¿Cuántas chaquetas fabricó?"));
-                        operarios.push({
-                            nombre: nombreOperario,
-                            muebles: 0,
-                            electronica: 0,
-                            textiles: { chaquetas: cantidadChaquetas }
-                        });
-                        conteoCategorias.textiles.chaquetas += cantidadChaquetas;
-                        break;
-                    default:
-                        alert("Opción no válida.");
-                        break;
-                }
-                break;
-            default:
-                alert("Opción no válida.");
-                break;
-        }
-        alert(`Producción registrada para el operario ${nombreOperario}.`);
-        break;
-
-    case "2":
-        if (operarios.length === 0) {
-            alert("No hay operarios registrados.");
-        } else {
-            operarios.forEach(operario => {
-                let totalMuebles = Object.values(operario.muebles).reduce((acc, val) => acc + val, 0);
-                let totalElectronica = Object.values(operario.electronica).reduce((acc, val) => acc + val, 0);
-                let totalTextiles = Object.values(operario.textiles).reduce((acc, val) => acc + val, 0);
-
-                totalesOperarios.push({
-                    nombre: operario.nombre,
-                    totalMuebles: totalMuebles,
-                    totalElectronica: totalElectronica,
-                    totalTextiles: totalTextiles
-                });
-
-                let totalProductos = totalMuebles + totalElectronica + totalTextiles;
-                alert(`${operario.nombre} fabricó un total de ${totalProductos} productos: 
-Muebles: ${totalMuebles}, Electrónica: ${totalElectronica}, Textiles: ${totalTextiles}`);
-            });
-        }
-        break;
-
-
-
-    case "3":
-        if (operarios.length === 0) {
-            alert("No hay operarios registrados.");
-        } else {
-            totalesOperarios.forEach(totales => {
-                let bonoMuebles = totales.totalMuebles * 5;
-                let bonoElectronica = totales.totalElectronica * 3;
-                let bonoTextiles = totales.totalTextiles * 2;
+                let bonoMuebles = conteoEscritorios * 5 + conteoSillas * 5 + conteoEstanterias * 5;
+                let bonoElectronica = conteoRadios * 3 + conteoParlantes * 3 + conteoRelojes * 3;
+                let bonoTextiles = conteoCamisetas * 2 + conteoPantalones * 2 + conteoChaquetas * 2;
 
                 let bonoTotal = bonoMuebles + bonoElectronica + bonoTextiles;
 
-                alert(`${totales.nombre} ganó un total de ${bonoTotal} en bonos.`);
-            });
-        }
-        break;
+                alert(`${operario} ganó un bono total de: ${bonoTotal}`);
+                break;
 
-    case "4":
-        if (operarios.length === 0) {
-            alert("No hay operarios registrados.");
-        } else {
-            totalesOperarios.forEach(totales => {
-                let totalProduccion = totales.totalMuebles + totales.totalElectronica + totales.totalTextiles;
-
-                if (totalProduccion > maxProduccion) {
-                    maxProduccion = totalProduccion;
-                    operarioMaxProduccion = totales.nombre;
+            case "4":
+                if (muebles + electronica + textiles > masProduccion) {
+                    masProduccion = muebles + electronica + textiles;
+                    opMasProduccion = operario;
                 }
-            });
 
-            if (operarioMaxProduccion) {
-                alert(`El operario con más producción es: ${operarioMaxProduccion} con ${maxProduccion} productos fabricados.`);
-            } else {
-                alert("No se pudo determinar el operario con más producción.");
-            }
+                if (opMasProduccion) {
+                    alert(`El operario con más producción es: ${opMasProduccion} con ${masProduccion} productos fabricados.`);
+                } else {
+                    alert("No se pudo determinar el operario con más producción.");
+                }
+                break;
+
+            case "5":
+                let mueblesCategoria = conteoEscritorios + conteoSillas + conteoEstanterias;
+                let electronicaCategoria = conteoRadios + conteoParlantes + conteoRelojes;
+                let textilesCategoria = conteoCamisetas + conteoPantalones + conteoChaquetas;
+
+                if (mueblesCategoria > electronicaCategoria && mueblesCategoria > textilesCategoria) {
+                    categoriaMasFabricada = "Muebles";
+                } else if (electronicaCategoria > mueblesCategoria && electronicaCategoria > textilesCategoria) {
+                    categoriaMasFabricada = "Electrónica";
+                } else if (textilesCategoria > mueblesCategoria && textilesCategoria > electronicaCategoria) {
+                    categoriaMasFabricada = "Textiles";
+                } else {
+                    categoriaMasFabricada = "No se puede determinar una categoría claramente más fabricada.";
+                }
+
+                alert(`La categoría más fabricada fue: ${categoriaMasFabricada}.`);
+                break;
+
+            case "6":
+                continuar = false;
+                alert("Gracias por utilizar el sistema.");
+                break;
+
+            default:
+                alert("Opción no válida. Intenta nuevamente.");
+                break;
         }
-        break;
-
-    case "5":
-        let categoriaMasFabricada = "";
-
-        let totalMuebles = conteoCategorias.muebles.escritorios + conteoCategorias.muebles.sillas + conteoCategorias.muebles.estanterias;
-        let totalElectronica = conteoCategorias.electronica.radios + conteoCategorias.electronica.parlantes + conteoCategorias.electronica.relojes;
-        let totalTextiles = conteoCategorias.textiles.camisetas + conteoCategorias.textiles.pantalones + conteoCategorias.textiles.chaquetas;
-
-        if (totalMuebles > totalElectronica && totalMuebles > totalTextiles) {
-            categoriaMasFabricada = "Muebles";
-        } else if (totalElectronica > totalMuebles && totalElectronica > totalTextiles) {
-            categoriaMasFabricada = "Electrónica";
-        } else if (totalTextiles > totalMuebles && totalTextiles > totalElectronica) {
-            categoriaMasFabricada = "Textiles";
-        } else {
-            categoriaMasFabricada = "No se puede determinar una categoría claramente más fabricada.";
-        }
-
-        alert(`La categoría más fabricada fue: ${categoriaMasFabricada}.`);
-        break;
-
-
-    case "6":
-        continuar = false;
-        alert("Gracias por utilizar el sistema.");
-        break;
-
-    default:
-        alert("Opción no válida. Intenta nuevamente.");
-        break;
-}
-}
+    }
 }
